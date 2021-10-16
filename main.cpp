@@ -25,7 +25,7 @@ using namespace std;
  */
 
 // Program welcome message
-const string WELCOME_MESSAGE = "Welcome to copy-machine 7.02";
+const string APP_NAME = "CopyMachine 7.02";
 
 // User input options (lower case)
 const char USER = 'u';
@@ -38,21 +38,16 @@ const char PROJECT = 'p';
 const int NUMBER_OF_USERS = 100;
 const int NUMBER_OF_ACCOUNTS = 10;
 
-void do_main_menu();
-char do_initial_UI();
-char do_copy_UI();
-
-char do_user_UI(char *choice);
-
-char do_admin_UI(char *choice);
-
-char do_invalid_input_UI(char *choice);
-
+void do_control_loop();
+void do_initial_UI(char *choice);
+void do_copy_UI(char *choice);
+void do_user_UI(char *choice);
+void do_admin_UI(char *choice);
+void do_invalid_input_UI(const char *choice);
+void do_greeting();
 void do_exit_message();
 
 int main(int argc, char **argv) {
-
-    cout << "Hello 7.02" << endl;
 //    char user_choice;
 //    user_choice = do_initial_menu_UI();
 //    switch(user_choice){
@@ -66,14 +61,13 @@ int main(int argc, char **argv) {
 //    int master_account;
 //    int project_accounts[NUMBER_OF_ACCOUNTS];
 //    for (auto &user: users) user = &master_account;
-
-    do_main_menu();
+    do_greeting();
+    do_control_loop();
     do_exit_message();
     return 0;
 }
 
-void do_main_menu() {
-    cout << WELCOME_MESSAGE << endl;
+void do_control_loop() {
     char choice = QUIT;
     do{
         cout << "Please choose from the following options:" << endl;
@@ -81,6 +75,7 @@ void do_main_menu() {
         cout << "'" << (char)toupper(ADMIN) << "' if you are an Administrator" << endl;
         cout << "'" << (char)toupper(QUIT) << "' to Quit" << endl;
         cin >> choice;
+        choice = (char) tolower(choice);
         switch(choice){
             case USER:
                 do_user_UI(&choice);
@@ -91,27 +86,31 @@ void do_main_menu() {
             case QUIT:
                 break;
             default:
-                do_invalid_input_UI(&choice)
-                ;
+                do_invalid_input_UI(&choice);
         }
     }while(choice != QUIT);
 }
 
+void do_greeting(){
+    cout << "Welcome to " << APP_NAME << endl << endl;
+}
+
 void do_exit_message() {
-    cout << "Thank you for using the app!\nGoodbye!" << endl;
+    cout << endl << "Thank you for using " << APP_NAME << endl << "Goodbye!" <<
+    endl;
 }
 
-char do_invalid_input_UI(char* choice) {
-    cin >> *choice;
-    *choice = (char)tolower(*choice);
+void do_invalid_input_UI(const char* choice) {
+    cout << endl << "'" << *choice << "' is not a valid input. ";
+    cout << "Please try again." << endl;
 }
 
-char do_admin_UI(char* choice) {
-    cin >> *choice;
-    *choice = (char)tolower(*choice);
+void  do_admin_UI(char* choice) {
+    char user_choice;
+    //cin >> user_choice;
 }
 
-char do_user_UI(char* choice) {
-    cin >> *choice;
-    *choice = (char)tolower(*choice);
+void do_user_UI(char* choice) {
+    char user_choice;
+    //cin >> user_choice;
 }
